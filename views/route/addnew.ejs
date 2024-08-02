@@ -1,0 +1,64 @@
+<% layout('layout/layout.ejs') -%>
+<body>
+    <div class="maindivaddnew" style="width: 80%; margin: auto;">
+        <form action="/newproduct" method="post" enctype="multipart/form-data">
+           <label for="productpicture" style=" display: block; margin: auto; text-align: center;">
+          <img
+            src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1744&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            style="width: 200px; height: 200px;"
+            id="showimage"
+            alt="..."
+          />
+          <p>Add the another picture here</p>
+          <p id="productpicturep" style="color: red;"></p>
+        </label>
+<div class="mb-3" >
+  <label for="exampleFormControlInput1" class="form-label">Product Name</label>
+  <input type="text" class="form-control" name="productname" id="exampleFormControlInput1" placeholder="Product Name">
+  <% if (error && error.errors && error.errors.name && error.errors.name.message) {%>
+    <p style="color: red;"><%= error.errors.name.message %></p>
+  <%} %>
+</div>
+<div class="mb-3" >
+  <label for="exampleFormControlInput1" class="form-label">Product Price</label>
+  <input type="number" class="form-control" name="price" id="exampleFormControlInput1" placeholder="Product Price">
+   <% if (error && error.errors && error.errors.price && error.errors.price.message) {%>
+    <p style="color: red;"><%= error.errors.price.message %></p>
+  <%} %>
+</div>
+<div class="mb-3" >
+  <label for="exampleFormControlInput1" class="form-label">Product Company</label>
+  <input type="text" name="companyname" class="form-control" id="exampleFormControlInput1" placeholder="Product Company">
+   <% if (error && error.errors && error.errors.company && error.errors.company.message) {%>
+    <p style="color: red;"><%= error.errors.company.message %></p>
+  <%} %>
+</div>
+<div class="mb-3" style="display: none;">
+  <label for="productpicture class="form-label">Upload the Product Picture</label>
+  <input type="file" name="productpicture" class="form-control" id="productpicture" placeholder="Upload the Product Pricture">
+   <% if (error && error.errors && error.errors.picture && error.errors.picture.message) {%>
+    <p style="color: red;"><%= error.errors.picture.message %></p>
+  <%} %>
+</div>
+<div class="mb-3">
+  <label for="exampleFormControlTextarea1" class="form-label">Product Description</label>
+  <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"></textarea>
+   <% if (error && error.errors && error.errors.description && error.errors.description.message) {%>
+    <p style="color: red;"><%= error.errors.description.message %></p>
+  <%} %>
+</div>
+<button class="btn btn-primary">Add Product</button>
+</form></div>
+</body>
+<script>
+   let productpicturep=document.getElementById("productpicturep")
+  productpicture.addEventListener("change", function () {
+    let showimage = document.getElementById("showimage");
+    let file = productpicture.files[0];
+    if (productpicture.files.length) {
+      showimage.src = URL.createObjectURL(file);
+    } else {
+      showimage.src = "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1744&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+    }
+  });
+</script>

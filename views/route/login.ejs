@@ -1,0 +1,123 @@
+<% layout('layout/layout.ejs') -%>
+<style>
+  #password-eye,
+  #confirmpassword-eye {
+    cursor: pointer;
+    position: relative;
+    left: 98%;
+    bottom: 28px;
+  }
+</style>
+<body>
+    <form action="/login" method="post" novalidate>
+<div style="width: 80%; margin: auto;">
+        <div class="mb-3">
+  <label for="email" class="form-label">Email address</label>
+  <input type="email" name="email" class="form-control" id="email" placeholder="Enter your Email">
+  <p id="emailp" style="color: red;"></p>
+</div>
+     <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input
+          type="password"
+          name="password"
+          class="form-control"
+          id="password"
+          placeholder="Enter Password"
+        />
+        <i class="fa-solid fa-eye-slash" id="password-eye"></i>
+        <p id="passwordp" style="color: red"></p>
+      </div>
+  <div class="mb-3">
+        <label for="confirmpassword" class="form-label">Confirm Password</label>
+        <input
+          type="password"
+          name="confirmpassword"
+          class="form-control"
+          id="confirmpassword"
+          placeholder="Confirm Your Password"
+        />
+          <i class="fa-solid fa-eye-slash" id="confirmpassword-eye"></i>
+        <p id="confirmpasswordp" style="color: red"></p>
+      </div>
+
+ <ol class="breadcrumb">
+    <li class="breadcrumb-item me-5"><a href="/forgetpassword">Have you forget password?</a></li>
+  </ol>
+<button class="btn btn-primary">log in </button>
+</div>
+    </form>
+</body>
+<script>
+      const email = document.getElementById('email')
+    const password = document.getElementById('password')
+      const emailp = document.getElementById('emailp');
+    const passwordp = document.getElementById('passwordp');
+  let form= document.querySelector("form");
+  form.addEventListener('submit',function (e) {
+    e.preventDefault();
+ let submitbol=true;
+ let gmailregular=/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+if (!email.value) {
+   email.style.outline="2px solid red";
+  emailp.innerHTML="The Email should not be empty "
+  submitbol=false;
+} else if (!gmailregular.test(email.value)) {
+    email.style.outline="2px solid red";
+  emailp.innerHTML="The invalid email "
+  submitbol=false;
+} else{
+  email.style.outline="2px solid green";
+  emailp.innerHTML="Right"
+  emailp.style.color="green"
+}
+
+if (!password.value) {
+  password.style.outline="2px solid red";
+  passwordp.innerHTML="The password should not be empty"
+  submitbol=false;
+} else if (password.value.length<8) {
+  password.style.outline="2px solid red";
+  passwordp.innerHTML="The password should be eight character long "
+  submitbol=false;
+}else{
+  password.style.outline="2px solid green";
+  passwordp.innerHTML="Right"
+  passwordp.style.color="green"
+}
+
+if (!confirmpassword.value) {
+  confirmpassword.style.outline="2px solid red";
+  confirmpasswordp.innerHTML="The confirm password should not be empty"
+  submitbol=false;
+} else if (confirmpassword.value!=password.value) {
+  confirmpassword.style.outline="2px solid red";
+  confirmpasswordp.innerHTML="The Passwords does not match"
+  submitbol=false;
+} else{
+  confirmpassword.style.outline="2px solid green";
+  confirmpasswordp.innerHTML="Right"
+  confirmpasswordp.style.color="green"
+}
+if (submitbol) {
+  form.submit();
+}
+  })
+   function togglepassword(input,eye) {
+    if (input.type=="password") {
+      input.type="text"
+      eye.classList.replace("fa-eye-slash","fa-eye")
+    }else{
+      input.type="password"
+      eye.classList.replace("fa-eye","fa-eye-slash")
+    }
+  }
+  const passwordEye = document.getElementById("password-eye");
+  const confirmpasswordEye = document.getElementById("confirmpassword-eye");
+  passwordEye.addEventListener("click", function () {
+    togglepassword(password,passwordEye)
+  });
+  confirmpasswordEye.addEventListener("click", function () {
+    togglepassword(confirmpassword,confirmpasswordEye)
+  });
+</script>

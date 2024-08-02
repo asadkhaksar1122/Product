@@ -1,0 +1,22 @@
+<script>
+  setTimeout(() => {
+    const success = document.querySelector(".alert-success");
+    const error = document.querySelector(".alert-danger");
+    if (success) {
+      success.style.display = "none";
+    }
+    if (error) {
+      error.style.display = "none";
+    }
+  }, 5000);
+</script>
+
+<% if ( success.length ) {%>
+<div class="alert alert-success" role="alert" style="display: block">
+  <%= success %>
+</div>
+<%} %> <% if (error &&error.length) {%>
+<div class="alert alert-danger" role="alert" style="display: block">
+  <%=error%>
+</div>
+<%} %>

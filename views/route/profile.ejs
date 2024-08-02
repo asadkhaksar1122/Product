@@ -1,0 +1,45 @@
+<% layout('layout/layout.ejs') -%>
+<body>
+    <div class="card mb-3"  style="max-width: 540px; margin: auto;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <label for="profile">
+      <img style="width: 150px; height: 200px;" id="profileimage" src="<%= currentuser.profile %>" alt="..."><p id="imagep">Click on image to update profile Picture</p></label>
+      <form action="/profile" method="post" enctype="multipart/form-data">
+        <div style="display: none;" >
+          <input type="file" id="profile" name="profile">
+        </div>
+        <button id="submitbtn" style="display: none;" class="btn btn-secondary" >Change Profile</button>
+      </form>
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title"><%= currentuser.firstname %> <%= currentuser.secondname %> </h5> 
+        <p class="card-text"><%= currentuser.email %></p>
+        <p class="card-text"><small class="text-body-secondary">First sure to change anything</small></p>
+        <a href="/changename" class="btn btn btn-primary">Change Name</a>
+        <a href="/ChangePassword" class="btn btn btn-secondary">Change Password</a>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<script>
+  let profile=document.getElementById("profile")
+  let profileimage=document.getElementById("profileimage")
+  let submitbtn=document.getElementById("submitbtn")
+  let imagep=document.getElementById("imagep")
+  profile.addEventListener("change",function(){
+if (profile.files.length) {
+  profileimage.src=URL.createObjectURL(profile.files[0])
+  submitbtn.style.display="block"
+  imagep.innerHTML="Click on below change profile to saved the picture"
+}else{
+  profileimage.src="<%= currentuser.profile %>"
+  submitbtn.style.display="none"
+  imagep.innerHTML="Click on picture to update profile Picture"
+}
+  })
+
+
+</script>
